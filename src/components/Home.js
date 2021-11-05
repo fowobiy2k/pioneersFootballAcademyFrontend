@@ -12,6 +12,7 @@ import pexel1 from '../img/pexel1.jpg'
 import pexel2 from '../img/pexel2.jpg'
 import pix from '../img/pix.jpg'
 import pixx from '../img/pixx-resize.jpg'
+import squad from '../img/squad.jpeg'
 import facebook from '../img/icon_facebook.svg'
 import instagram from '../img/icon_insta.svg'
 import twitter from '../img/icon_twitter.svg'
@@ -29,7 +30,7 @@ const Home = ({ fixtures }) => {
 
             <div className="team-pic">
                 {/* <img src={kids} alt="Photo" /> */}
-                <img src={pix} alt="Photo" />
+                <img src={squad} alt="Photo" />
             </div>
 
             <div className="msg-block-container">
