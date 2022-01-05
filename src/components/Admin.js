@@ -1,12 +1,18 @@
 import { useState } from 'react';
 import {Link} from 'react-router-dom'
 import { TaskLinks } from '../data/TaskLinks'
+import MatchFormHandler from './form_handlers/MatchFormHandler';
+import PlayerFormHandler from './form_handlers/PlayerFormHandler';
 import axios from 'axios'
 import '../css/admin.scss'
+import PaymentFormHandler from './form_handlers/PaymentFormHandler';
+import ExpenseFormHandler from './form_handlers/ExpenseFormHandler';
 
 const Admin = () => {
 
     const [task, setTask] = useState();
+
+    
 
     const displayForm = (e) => {
         e.preventDefault()
@@ -23,7 +29,7 @@ const Admin = () => {
         let myForm = document.getElementById(task)
 
         const requestOptions = {
-            method: 'PUT',
+            method: 'POST',
             Headers: { 'Content-Type': 'application/json '},
             body : myForm
         };
@@ -32,7 +38,7 @@ const Admin = () => {
         //     .then(response => response.json())
         //     .then(data => console.log(data))
 
-        axios.put('http://localhost:8099/pfa/createplayer', myForm)
+        axios.post('http://localhost:8099/pfa/createplayer', myForm)
             .then(response => console.log(response))
             .catch(err => console.log(err))
 
@@ -82,219 +88,15 @@ const Admin = () => {
 
                 <div className="forms">
                     
-                    <div className={task === 'match' ? "form-box match display" : "form-box match hide"}>
-                        <h4>create friendly match</h4>
-                        <form action="#" className='match-form' id='match'>
+                    { task === 'match' && <MatchFormHandler /> }
+                    { task === 'register player' && <PlayerFormHandler /> }
+                    { task === 'payment' && <PaymentFormHandler /> }
+                    { task === 'expenses' && <ExpenseFormHandler /> }
 
-                            <div className="input-block">
-                                <div className="label">
-                                <label htmlFor="opponent">opponent:</label>
-                                </div>
-                                
-                                <div className="input">
-                                <input type="text" name='opponent' /> <br />
-                                </div>
-                            </div>
+                    
 
-                            <div className="input-block">
-                                <div className="label">
-                                <label htmlFor="venue">Venue:</label>
-                                </div>
-                                
-                                <div className="input">
-                                <input type="text" name='venue' /> <br />
-                                </div>
-                            </div>
-
-                            <div className="input-block">
-                                <div className="label">
-                                <label htmlFor="date">date:</label>
-                                </div>
-                                
-                                <div className="input">
-                                <input type="date" name='date' /> <br />
-                                </div>
-                            </div>
-
-                            <div className="input-block">
-                                <div className="label">
-                                <label htmlFor="time">time:</label>
-                                </div>
-                                
-                                <div className="input">
-                                <input type="time" name='time' /> <br />
-                                </div>
-                            </div>
-
-                            <div className="button">
-                            <a className='submit' href="#" >save</a>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div className={task === 'register player' ? "form-box reg-player diplay" : "hide" }>
-
-                        <h4>register new player</h4>
-                        <form action="#" className='reg-player-form' id='register player'>
-                            
-                        <div className="input-block">
-                                <div className="label">
-                                <label htmlFor="fname">firstname:  </label>
-                                </div>
-                                
-                                <div className="input">
-                                <input type="text" name='fname' /> <br />
-                                </div>
-                            </div>
-
-                            <div className="input-block">
-                                <div className="label">
-                                <label htmlFor="lname">surname:  </label>
-                                </div>
-                                
-                                <div className="input">
-                                <input type="text" name='lname' /> <br />
-                                </div>
-                            </div>
-
-                            <div className="input-block">
-                                <div className="label">
-                                <label htmlFor="address">address:  </label>
-                                </div>
-                                
-                                <div className="input">
-                                <input type="text" name='address' /> <br />
-                                </div>
-                            </div>
-
-                            <div className="input-block">
-                                <div className="label">
-                                <label htmlFor="name">phone:  </label>
-                                </div>
-                                
-                                <div className="input">
-                                <input type="text" name='name' /> <br />
-                                </div>
-                            </div>
-
-                            <div className="input-block">
-                                <div className="label">
-                                <label htmlFor="age">age:  </label> &nbsp;
-                                </div>
-                                
-                                <div className="input">
-                                <input type="text" name='age' /> <br />
-                                </div>
-                            </div>
-
-                            <div className="input-block">
-                                <div className="label">
-                                <label htmlFor="class">class:  </label> &nbsp;
-                                </div>
-                                
-                                <div className="input">
-                                <input type="text" name='class' /> <br />
-                                </div>
-                            </div>
-
-                            <hr />
-
-                            <span>parent / guardian</span> <br />
-
-                            <div className="input-block">
-                                <div className="label">
-                                <label htmlFor="name">name:</label> &nbsp;
-                                </div>
-                                
-                                <div className="input">
-                                <input type="text" name='name' /> <br />
-                                </div>
-                            </div>
-
-                            <div className="input-block">
-                                <div className="label">
-                                <label htmlFor="phone">phone:</label> &nbsp; &nbsp;
-                                </div>
-                                
-                                <div className="input">
-                                <input type="text" name='phone' /> <br />
-                                </div>
-                            </div>
-
-                            <div className="button">
-                            <a className='submit' href="#" onClick={registerPlayer}> save</a>
-                            </div>
-                            
-                        </form>
-                    </div>
-
-
-                    <div className={task === 'payment' ? "form-box payment display" : 'hide' }>
-                        <h4>record a payment</h4>
-
-                        <form action="#" className="payment-form" id='payment'>
-                            
-                        <div className="input-block">
-                                <div className="label">
-                                <label htmlFor="purpose">purpose:</label> &nbsp; &nbsp;
-                                </div>
-                                
-                                <div className="input">
-                                <select name="purpose" id="purpose">
-                                <option value="registration">registration</option>
-                                <option value="monthly fee">monthly fee</option>
-                            </select> <br />
-                                </div>
-                            </div>
-                            
-                            <div className="input-block">
-                                <div className="label">
-                                <label htmlFor="amount">amount:</label> &nbsp; &nbsp;
-                                </div>
-                                
-                                <div className="input">
-                                <input type="text" name='amount' /> <br />
-                                </div>
-                            </div>
-
-                            <div className="button">
-                            <a className='submit' href="#">save</a>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div className={task === 'expenses' ? "form-box expenses display" : 'hide'}>
-
-                        <h4>record expenses</h4>
-
-                        <form action="#" className="expenses-form" id='expenses'>
-                            
-                        <div className="input-block">
-                                <div className="label">
-                                <label htmlFor="purpose">purpose:</label> &nbsp; &nbsp;
-                                </div>
-                                
-                                <div className="input">
-                                <input type="text" name='purpose' /> <br />
-                                </div>
-                            </div>
-
-                            <div className="input-block">
-                                <div className="label">
-                                <label htmlFor="amount">amount:</label> &nbsp; &nbsp;
-                                </div>
-                                
-                                <div className="input">
-                                <input type="text" name='amount' /> <br />
-                                </div>
-                            </div>
-
-                            <div className="button">
-                            <a className='submit' href="#">save</a>
-                            </div>
-                        </form>
-                    </div>
-
+                    
+                    
                 </div>
                 <div className="display" id='display'></div>
 
