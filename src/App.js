@@ -18,8 +18,15 @@ function App() {
         const getResources = async () => {
     
           // await fetchFixtures();
+          axios.get('/home').then(
+              res => {
+                const response = res.data;
+                console.log('Data: ', response)
+                
+              }
+            )
 
-          axios.get('/pfa/all/fixtures').then(
+          axios.get('/all/fixtures').then(
               res => {
                 const response = res.data;
                 console.log('Data: ', response)
@@ -30,13 +37,13 @@ function App() {
               }
             )
 
-            axios.get('/pft/landing').then(
-              res => {
-                const response = res.data;
-                console.log('Data2: ', response)
-                setMessage(response)
-              }
-            )
+            // axios.get('/pft/landing').then(
+            //   res => {
+            //     const response = res.data;
+            //     console.log('Data2: ', response)
+            //     setMessage(response)
+            //   }
+            // )
           
         }
     
